@@ -1,0 +1,22 @@
+name: gh-200-pyfile-check
+
+on:
+  push:
+    branches: [ "py-file-check" ]
+
+jobs:
+  check:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+    - name: Run the py file check
+      run: labs/capstone/check.py
